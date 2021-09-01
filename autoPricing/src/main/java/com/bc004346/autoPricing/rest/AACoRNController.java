@@ -1,4 +1,4 @@
-package com.bc004346.manualPricing.rest;
+package com.bc004346.autoPricing.rest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.bc004346.manualPricing.config;
+package com.bc004346.autoPricing.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.bc004346.manualPricing;
+package com.bc004346.autoPricing;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
