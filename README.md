@@ -61,8 +61,8 @@ Once all pods in ```default``` namespace are running, it will still take a few m
 
 ```
 while true; do echo 'curl http://localhost:30080/reservation -H x-client: aacorn -X POST'; curl http://localhost:30080/reservation -H "x-client: aacorn" -X POST; echo '\n';  sleep 5; done
-while true; do echo 'curl http://localhost:30080/reservation -H x-client: aacorn -X POST'; curl http://localhost:30080/reservation -H "x-client: aacom" -X POST; echo '\n';  sleep 3; done
-while true; do echo 'curl http://localhost:30080/reservation -H x-client: aacorn -X POST'; curl http://localhost:30080/reservation -H "x-client: mobile" -X POST; echo '\n';  sleep 15; done
+while true; do echo 'curl http://localhost:30080/reservation -H x-client: aacom -X POST'; curl http://localhost:30080/reservation -H "x-client: aacom" -X POST; echo '\n';  sleep 3; done
+while true; do echo 'curl http://localhost:30080/reservation -H x-client: mobile -X POST'; curl http://localhost:30080/reservation -H "x-client: mobile" -X POST; echo '\n';  sleep 15; done
 ```
 
 ### You can access the following Istio components below:
