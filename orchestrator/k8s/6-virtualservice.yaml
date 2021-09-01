@@ -1,0 +1,48 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: pricing
+spec:
+  hosts:
+  - pricing.default.svc.cluster.local
+  http:
+  - match:
+    - headers:
+        x-client:
+          exact: aacom
+    route:
+    - destination:
+        host: pricing.default.svc.cluster.local
+        subset: auto-pricing
+      weight: 0
+    - destination:
+        host: pricing.default.svc.cluster.local
+        subset: manual-pricing
+      weight: 100
+  - match:
+    - headers:
+        x-client:
+          exact: aacorn
+    route:
+    - destination:
+        host: pricing.default.svc.cluster.local
+        subset: auto-pricing
+      weight: 100
+    - destination:
+        host: pricing.default.svc.cluster.local
+        subset: manual-pricing
+      weight: 0
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: pricing
+spec:
+  host: pricing.default.svc.cluster.local
+  subsets:
+  - labels:
+      version: auto-pricing
+    name: auto-pricing
+  - labels:
+      version: manual-pricing
+    name: manual-pricing

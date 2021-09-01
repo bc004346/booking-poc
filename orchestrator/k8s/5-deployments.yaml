@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orchestrator-app
+spec:
+  selector:
+    matchLabels:
+      app: orchestrator-app
+  replicas: 1
+  template: # template for the pods
+    metadata:
+      labels:
+        app: orchestrator-app
+    spec:
+      containers:
+      - name: orchestrator-app
+        image: bc004346/orchestrator
+        command: ["java","-Xmx50m","-jar","app.jar"]
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "250m"
+          requests:
+            memory: 256Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auto-pricing
+spec:
+  selector:
+    matchLabels:
+      app: pricing
+  replicas: 1
+  template: # template for the pods
+    metadata:
+      labels:
+        app: pricing
+        version: auto-pricing
+    spec:
+      containers:
+      - name: auto-pricing
+        image: bc004346/auto-pricing
+        command: ["java","-Xmx50m","-jar","app.jar"]
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "250m"
+          requests:
+            memory: 256Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: manual-pricing
+spec:
+  selector:
+    matchLabels:
+      app: pricing
+  replicas: 1
+  template: # template for the pods
+    metadata:
+      labels:
+        app: pricing
+        version: manual-pricing
+    spec:
+      containers:
+      - name: manual-pricing
+        image: bc004346/manual-pricing
+        command: ["java","-Xmx50m","-jar","app.jar"]
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "250m"
+          requests:
+            memory: 256Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orchestrator-service
+spec:
+  # This defines which pods are going to be represented by this Service
+  # The service becomes a network endpoint for either other services
+  # or maybe external users to connect to (eg browser)
+  selector:
+    app: orchestrator-app
+  ports:
+    - name: http
+      port: 8080
+      nodePort: 30080
+  type: NodePort
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pricing
+spec:
+  selector:
+    app: pricing
+  ports:
+    - name: http
+      port: 8080
+  type: ClusterIP

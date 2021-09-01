@@ -1,0 +1,44 @@
+# Kind is a tool for running local K8S clusters using Docker container "nodes".
+# for more info on Kind and local setup use this: https://kind.sigs.k8s.io/;
+# It is also available via Brew on Macs
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+kubeadmConfigPatches:
+- |
+  apiVersion: kubelet.config.k8s.io/v1beta1
+  kind: KubeletConfiguration
+  evictionHard:
+    nodefs.available: "0%"
+kubeadmConfigPatchesJSON6902:
+- group: kubeadm.k8s.io
+  version: v1beta2
+  kind: ClusterConfiguration
+  patch: |
+    - op: add
+      path: /apiServer/certSANs/-
+      value: my-hostname
+# 1 control plane node and 3 workers
+nodes:
+# the control plane node config
+- role: control-plane
+  extraPortMappings:
+  # 30080 will be assigned to main app
+  - containerPort: 30080
+    hostPort: 30080
+    protocol: tcp 
+  # 31000 will be used by Kiali
+  - containerPort: 31000
+    hostPort: 31000
+    protocol: tcp
+  # 31001 will be used by jaeger
+  - containerPort: 31001
+    hostPort: 31001
+    protocol: tcp
+  # 31002 will be used by Grafana
+  - containerPort: 31002
+    hostPort: 31002
+    protocol: tcp
+# the three workers
+- role: worker
+- role: worker
+- role: worker
