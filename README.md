@@ -15,6 +15,14 @@ mvn clean install docker:build
 
 *If doing it on a Windows machine, you will have to modify the value of ```<dockerHost>``` to something like 'http://localhost:2375'. For more info see [Docxker FAQ](https://docs.docker.com/desktop/faqs/)
 
+*Another option is to create docker images manually (you will have to be in a corresponding folder for it to work):
+
+```
+docker build -t bc004346/orchestrator .
+docker build -t bc004346/manual-pricing .
+docker build -t bc004346/auto-pricing .
+```
+
 ## Step 2
 
 ### Create local Kubernetes cluster **OR** connect to the one on the public cloud
