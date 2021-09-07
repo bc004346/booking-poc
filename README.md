@@ -1,4 +1,6 @@
-# booking-poc
+# Orchestrator with Custom Plug-Ins
+
+The purpose of this POC is to prove that it is possible for multiple teams to independently develop and deploy custom plug-ins to be used by core common project such as an orchestrator. The assumed constraints include using K8S with Istio for traffic management. The desired outcome is to show that no custom code is necessary in the common core project to map or tie-in custom plug-ins.
 
 ## Step 1
 
