@@ -1,10 +1,10 @@
 {
-  "version": "2.0.2",
+  "version": "2.0.3",
   "summary": {
     "title": "Search and Availability threat model",
     "owner": "Renats Stozkovs",
     "description": "SearchAirfare Search and Availability is a product in the Customer Buy Airfare Retail portfolio that consists of features and capabilities related to customer searches for airfare & availability, as well as flight schedule searches. The channel domain includes American's consumer website (aa.com - desktop and mobile web), mobile native applications (IOS and Android) and self-service machines (SSM).",
-    "id": 0
+    "id": 1
   },
   "detail": {
     "contributors": [],
@@ -15,7 +15,7 @@
         "diagramType": "STRIDE",
         "placeholder": "New STRIDE diagram description",
         "thumbnail": "./public/content/images/thumbnail.stride.jpg",
-        "version": "2.0.2",
+        "version": "2.0.3",
         "cells": [
           {
             "position": {
