@@ -2,6 +2,35 @@
 
 The purpose of this POC is to prove that it is possible for multiple teams to independently develop and deploy custom plug-ins to be used by core common project such as an orchestrator. The assumed constraints include using K8S with Istio for traffic management. The desired outcome is to show that no custom code is necessary in the common core project to map or tie-in custom plug-ins.
 
+```mermaid
+sequenceDiagram
+    participant User
+    participant Orchestrator
+    participant ManualPricing
+    participant AutoPricing
+    participant K8S
+    participant Istio
+    participant Kiali
+    participant Jaeger
+    participant Grafana
+
+    User->>Orchestrator: Deploy custom plug-ins
+    Orchestrator->>K8S: Create local Kubernetes cluster
+    K8S->>Istio: Setup Istio
+    Istio->>K8S: Manage traffic
+    User->>K8S: Deploy Docker images
+    K8S->>Orchestrator: Start new pods
+    Orchestrator->>ManualPricing: Send traffic
+    Orchestrator->>AutoPricing: Send traffic
+    User->>K8S: Generate live traffic
+    K8S->>Kiali: Observe traffic
+    K8S->>Jaeger: Trace requests
+    K8S->>Grafana: Monitor metrics
+    User->>Kiali: Access Kiali
+    User->>Jaeger: Access Jaeger
+    User->>Grafana: Access Grafana
+```
+
 ## Step 1
 
 ### Compile and create docker images for each project in a repo*:
